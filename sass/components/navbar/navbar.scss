@@ -34,7 +34,7 @@
 	.logo_menu_section {
 		display: flex;
 		justify-content: space-between;
-		padding: 10px 25px;
+		padding: 10px 15px;
 
 		@include min_medium-desktop {
 			all: unset;
@@ -98,7 +98,7 @@
 	}
 
 	#nav {
-		padding: 0 45px;
+		padding: 0 25px;
 
 		@include min_medium-desktop {
 			padding: 0px 0px 0px 30px;
@@ -119,8 +119,9 @@
 				@include min_medium-desktop {
 					padding: 0 10px;
 				}
+				
 			}
-			.nav_ul_li a {
+			.nav_ul_li a, .dropdown_indicator {
 				font-family: 'Poppins';
 				font-style: normal;
 				font-weight: normal;
@@ -128,6 +129,7 @@
 				line-height: 3;
 				color: #ffffff;
 				display: block;
+				cursor: pointer;
 
 				i{
 					font-size: 12px;
@@ -137,12 +139,12 @@
 					line-height: 0;
 				}
 				&:hover {
-					color: rgb(6, 6, 163);
+					color:  #ffffffc5;
 					transition: all 380ms ease-in-out;
 				}
 			}
 			.dropdown_link:hover .nav_dropdown {
-				transition: all 0.5s ease-in-out;
+				transition: all 0.3s ease-in-out;
 				transform: scale(1);
 				transform-origin: center;
 				opacity: 1;
@@ -151,11 +153,12 @@
 		
 
 			.nav_dropdown {
-				transition: all 0.5s ease-in-out;
+				transition: all 0.3s ease-in-out;
 				position: absolute;
 				transform: scale(0);
 				opacity: 0;
 				transform-origin: center;
+			
 				
 				@include  min_medium-desktop{
 					padding-top: 16px;
@@ -166,15 +169,16 @@
 					background-color: #fff;
 					border-radius: 10px;
 					position: absolute;
-					box-shadow: 0px 0px 2px 0px #ccc;
-					z-index: 333;
+					box-shadow: 0px 0px 3px 0px #ccc;
+					z-index: 1000;
 					text-align: center;
+					padding: 35px 55px;
 
 					a {
-						color: black !important;
+						color: black;
 						display: block;
-						line-height: 2.4 !important;
-						padding: 0 35px;
+						line-height: 2.4;
+						// padding: 20px 55px;
 						font-size: 1.2em;
 
 						cursor: pointer;
@@ -243,7 +247,7 @@
 	}
 
 	#header_right_wrapper {
-		padding: 0px 45px;
+		padding: 0px 25px;
 		display: flex;
 		flex-direction: column;
 
