@@ -1,18 +1,9 @@
 
 // let nav = document.querySelector('#nav');
 let bars = document.querySelectorAll('#bars');
-let  navToggle = (nav, header_right)=>{
-  if(nav.className == 'nav_close'){
-         nav.classList.add('nav_open');
-         header_right.classList.add('header_right_open');
-bars.forEach(bar =>{
-  
-   bar.addEventListener('click', (e)=>{
-      let header_right = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('#header_right');
-      let nav = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('#nav')
-      bar.classList.toggle('change');
-     console.log(header_right)
-      if(nav.className == 'nav_close'){
+const  navToggle = (nav, header_right)=>{
+
+    if(nav.className == 'nav_close'){
         nav.classList.add('nav_open');
         header_right.classList.add('header_right_open');
   
@@ -23,19 +14,17 @@ bars.forEach(bar =>{
 }
 
 
-
-
 if(bars.length >= 1){
-  bars.forEach(bar =>{
-    bar.addEventListener('click', (e)=>{
-       let header_right = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('#header_right');
-       let nav = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('#nav')
-       bar.classList.toggle('change');
-       
-    
-       navToggle(nav, header_right)
-     });
-   })
+    bars.forEach(bar =>{
+
+        bar.addEventListener('click', (e)=>{
+           let header_right = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('#header_right');
+           let nav = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('#nav')
+           bar.classList.toggle('change');
+           navToggle(nav, header_right)
+     
+     })
+ })
 
 }else {
 
