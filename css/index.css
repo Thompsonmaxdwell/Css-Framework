@@ -175,7 +175,8 @@ p {
     @media (min-width: 1000px) {
       #nav .nav_ul .nav_ul_li {
         padding: 0 10px; } }
-    #nav .nav_ul .nav_ul_li a, #nav .nav_ul .dropdown_indicator {
+    #nav .nav_ul .nav_ul_li a,
+    #nav .nav_ul .dropdown_indicator {
       font-family: 'Poppins';
       font-style: normal;
       font-weight: normal;
@@ -184,12 +185,15 @@ p {
       color: #ffffff;
       display: block;
       cursor: pointer; }
-      #nav .nav_ul .nav_ul_li a i, #nav .nav_ul .dropdown_indicator i {
+      #nav .nav_ul .nav_ul_li a i,
+      #nav .nav_ul .dropdown_indicator i {
         font-size: 12px; }
       @media (min-width: 1000px) {
-        #nav .nav_ul .nav_ul_li a, #nav .nav_ul .dropdown_indicator {
+        #nav .nav_ul .nav_ul_li a,
+        #nav .nav_ul .dropdown_indicator {
           line-height: 0; } }
-      #nav .nav_ul .nav_ul_li a:hover, #nav .nav_ul .dropdown_indicator:hover {
+      #nav .nav_ul .nav_ul_li a:hover,
+      #nav .nav_ul .dropdown_indicator:hover {
         color: #ffffffc5;
         transition: all 380ms ease-in-out; }
     #nav .nav_ul .dropdown_link:hover .nav_dropdown {
@@ -222,6 +226,16 @@ p {
           cursor: pointer; }
           #nav .nav_ul .nav_dropdown .nav_dropdown_content a:hover {
             background-color: whitesmoke; }
+
+.header_social_icon {
+  display: flex; }
+
+.header_social_icon div {
+  margin: 0 10px; }
+
+.header_social_icon div i {
+  color: #fff;
+  font-size: 20px; }
 
 .nav_close {
   height: 0;
@@ -261,7 +275,7 @@ p {
   opacity: 1; }
 
 #header_right_wrapper {
-  padding: 0px 45px;
+  padding: 20px 45px;
   display: flex;
   flex-direction: column; }
   @media (min-width: 1000px) {
@@ -4091,101 +4105,85 @@ Using display: grid;
 /**
 || Carousel SECTION
 */
-.slider_wrapper_tracker {
-  padding: 50px 10px;
-  background-color: #f6f6f6ad;
-  width: 100%; }
-  @media (max-width: 441px) {
-    .slider_wrapper_tracker {
-      padding: 15px; } }
-  .slider_wrapper_tracker .slider_content_tracker {
+.carousel {
+  position: relative;
+  height: 400px;
+  width: 80%;
+  margin: 0 auto; }
+  .carousel .carousel_track-container {
+    height: 100%;
     position: relative;
-    width: 100%;
-    margin: 30px auto;
-    overflow-x: hidden;
-    height: 300px;
-    box-sizing: border-box;
-    background-color: #3737ce;
-    border-radius: 9px; }
-  .slider_wrapper_tracker .slide_container {
-    display: flex;
-    width: 100%;
-    height: auto; }
-  .slider_wrapper_tracker .slide {
-    text-align: center;
-    min-width: 100%;
-    width: 100%;
-    display: block;
-    height: 300px;
-    overflow-x: hidden; }
-    .slider_wrapper_tracker .slide .slide_img {
-      width: 100%;
-      height: 300px;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      display: block;
-      object-fit: cover; }
-    .slider_wrapper_tracker .slide .caption {
-      position: relative;
-      z-index: 1;
-      width: 300px;
-      padding: 30px;
-      width: 100%;
-      margin: 50px auto;
-      color: white; }
-      @media (max-width: 769px) {
-        .slider_wrapper_tracker .slide .caption {
-          margin: 50px; } }
-      .slider_wrapper_tracker .slide .caption h1 {
-        font-size: 25px; }
-        @media (max-width: 441px) {
-          .slider_wrapper_tracker .slide .caption h1 {
-            font-size: 15px; } }
-      .slider_wrapper_tracker .slide .caption p {
-        font-size: 1rem; }
-  .slider_wrapper_tracker .carousel_btn_wrapper {
-    width: 110px;
-    z-index: 2;
-    display: flex;
-    justify-content: space-between;
+    overflow: hidden; }
+    .carousel .carousel_track-container .carousel_track {
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+      height: 100%;
+      transition: transform 250ms ease-in; }
+      .carousel .carousel_track-container .carousel_track .carousel_slide {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%; }
+        .carousel .carousel_track-container .carousel_track .carousel_slide:after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.4); }
+        .carousel .carousel_track-container .carousel_track .carousel_slide .slide_caption {
+          position: absolute;
+          z-index: 1;
+          width: 300px;
+          padding: 30px;
+          width: 100%;
+          margin: 50px auto;
+          color: white;
+          text-align: center;
+          top: 0; }
+          @media (max-width: 769px) {
+            .carousel .carousel_track-container .carousel_track .carousel_slide .slide_caption {
+              margin: 50px; } }
+        .carousel .carousel_track-container .carousel_track .carousel_slide .carousel_images {
+          width: 100%;
+          height: 100%;
+          object-fit: cover; }
+  .carousel .slide_button_wrapper {
     position: absolute;
-    right: 20px;
-    bottom: 20px; }
-    .slider_wrapper_tracker .carousel_btn_wrapper button {
-      display: block;
-      border: 2px solid white;
-      outline: none;
-      width: 50px;
-      border-radius: 50%;
-      height: 50px;
-      background-color: unset;
-      color: white;
-      cursor: pointer; }
-      .slider_wrapper_tracker .carousel_btn_wrapper button i {
-        font-size: 18px; }
-      .slider_wrapper_tracker .carousel_btn_wrapper button:hover {
-        background-color: #bebebe; }
-
-.color1 {
-  background-color: red; }
-
-.indicator_wrapper {
-  position: absolute;
-  bottom: 20px;
-  display: flex;
-  padding: 20px; }
-
-.indicator_wrapper .indicator {
-  background-color: white;
-  margin: 4px;
-  width: 15px;
-  height: 15px;
-  border: none;
-  outline: none; }
-
-.indicator_wrapper .current {
-  background-color: #f12459; }
+    bottom: 40px;
+    right: 0;
+    display: flex;
+    width: 150px;
+    justify-content: space-evenly; }
+  .carousel .carousel_button {
+    display: grid;
+    place-content: center;
+    padding: 20px;
+    background-color: unset;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    border: 2px solid white;
+    color: white;
+    outline: none; }
+  .carousel .carousel_nav {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 40px;
+    left: 20px; }
+    .carousel .carousel_nav .carousel_indicator {
+      background-color: white;
+      margin: 4px;
+      width: 15px;
+      height: 15px;
+      transition: background-color 0.5s ease-in-out;
+      border: none;
+      outline: none; }
+      .carousel .carousel_nav .carousel_indicator.current_slide {
+        background-color: #f12459; }
 
 .c-txt {
   text-align: center;

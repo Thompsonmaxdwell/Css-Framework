@@ -1,86 +1,109 @@
-let slide_container = document.querySelector('.slide_container');
-let slides = slide_container.children;
-let slide_width = slides[0].getBoundingClientRect().width;
-let next_slide = document.querySelector('.next_slide');
-let prev_slide = document.querySelector('.prev_slide');
-let indicators = document.querySelector('.indicator_wrapper');
-let indicator = document.querySelectorAll('.indicator');
-let slide_counter = 1;
 
-slide_container.style.transform = 'translateX(' + -slide_width * slide_counter + 'px' + ')';
+const track = document.querySelector('.carousel_track');
+const slides = Array.from(track.children);
+const nextButton = document.querySelector('.carousel_button-right');
+const prevButton = document.querySelector('.carousel_button-left');
+const dotsNav = document.querySelector('.carousel_nav');
+const dots = Array.from(dotsNav.children);
+const slideWidth = slides[0].getBoundingClientRect().width;
 
 
-// Next Slide 
-const nextSlideEventFun = () => {
-	if (slide_counter >= slides.length - 1) return;
-	slide_container.style.transition = 'transform 250ms ease-in-out';
-	slide_counter++;
-	slide_container.style.transform = 'translateX(' + -slide_width * slide_counter + 'px' + ')';
-    indicator_wrapper()
-	
+
+// setSlidePosition
+const setSlidePosition = (slide, index) => {
+    slide.style.left = slideWidth * index + 'px';
 };
+slides.forEach(setSlidePosition);
 
+const moveToSlide = (track, currentSlide, targetSlide) => {
+    track.style.transform = 'translateX(-' + targetSlide.style.left + ')';
+    currentSlide.classList.remove('current_slide');
+    targetSlide.classList.add('current_slide');
 
-// Previous Slide 
-const prevSlideEventFun = () => {
-	if (slide_counter <= 0) return;
-	slide_container.style.transition = 'transform 250ms ease-in-out';
-	slide_counter--;
-	slide_container.style.transform = 'translateX(' + -slide_width * slide_counter + 'px' + ')';
-};
+}
 
-
-// indicator fun
-const indicator_wrapper = ()=>{
-    let current =  indicators.querySelector('.current');
-	if(current.nextElementSibling == null){
-	    indicators.firstElementChild.classList.add('current');
-	    current.classList.remove('current');
-	  return
-	}
-	current.classList.remove('current');
-	current.nextElementSibling.classList.add('current');
+const updateDots = (currentDot, targetDot) => {
+    currentDot.classList.remove('current_slide');
+    targetDot.classList.add('current_slide');
 }
 
 
-//     remove   transition when it reaches lastElemnt and FirstElement
-const slide_container_Event = (e) => {
-	if (slides[slide_counter].id === 'last_slide') {
-		slide_container.style.transition = 'none';
-		slide_counter = slides.length - 2;
-		slide_container.style.transform = 'translateX(' + -slide_width * slide_counter + 'px' + ')';
-	}
 
-	if (slides[slide_counter].id === 'first_slide') {
-		slide_container.style.transition = 'none';
-		slide_counter = slides.length - slide_counter;
-		slide_container.style.transform = 'translateX(' + -slide_width * slide_counter + 'px' + ')';
-	}
-};
+// When i click left, move slide to the left
+const moveSlideToRight = e => {
+    const currentSlide = track.querySelector('.current_slide');
+    const nextSlide = currentSlide.nextElementSibling;
+    const currentDot = dotsNav.querySelector('.current_slide');
+    const nextDot = currentDot.nextElementSibling;
 
 
-const dostSlide = (e) => {
-	let button = e.target.closest('button');
-	if (!button) return;
+    // Reset Slide to first slide , when it reach last slide   
+    if (!nextSlide) {
+        currentSlide.classList.remove('current_slide');
+        currentDot.classList.remove('current_slide');
 
-	let current = indicators.querySelector('.current');
-	current.classList.remove('current');
-	e.target.classList.add('current');
+        slides[0].classList.add('current_slide');
+        dots[0].classList.add('current_slide');
+
+        track.style.transition = '5ms ';
+        track.style.transform = 'translateX(-' + 0 + ')';
+        return
+    }
+    track.style.transition = 'transform 250ms ease-in';
+    moveToSlide(track, currentSlide, nextSlide);
+    updateDots(currentDot, nextDot);
+}
 
 
-	slide_counter = Array.from(indicator).indexOf(e.target) + 1;
-	slide_container.style.transition = 'transform 250ms ease-in-out';
-	slide_container.style.transform = 'translateX(' + -slide_width * slide_counter + 'px' + ')';
-};
+// When i click right, move slide to the right
+const moveSlideToLeft = e => {
+    const currentSlide = track.querySelector('.current_slide');
+    const prevSlide = currentSlide.previousElementSibling;
+    const currentDot = dotsNav.querySelector('.current_slide');
+    const nextDot = currentDot.previousElementSibling;
+
+    // Reset Slide to last slide , when it reach first slide   
+    if (!prevSlide) {
+        currentSlide.classList.remove('current_slide');
+        dots[dots.length - 1].classList.add('current_slide');
+
+        currentDot.classList.remove('current_slide');
+        slides[slides.length - 1].classList.add('current_slide');
+
+        track.style.transition = 'none ';
+        track.style.transform = 'translateX(-' + slides[slides.length - 1].style.left + ')';
+
+        return
+    }
+
+    track.style.transition = 'transform 250ms ease-in';
+    moveToSlide(track, currentSlide, prevSlide);
+    updateDots(currentDot, nextDot);
+}
 
 
-//   Next  Slide Event tigger
-next_slide.addEventListener('click', nextSlideEventFun);
-//   previous Slide Event tigger
-prev_slide.addEventListener('click', prevSlideEventFun);
-//    remove   transition when it reaches lastElemnt and FirstElement
-slide_container.addEventListener('transitionend', slide_container_Event);
-// Auto slid
-setInterval(nextSlideEventFun, 4000);
-// click  indicator to move the  slide
-indicators.addEventListener('click', dostSlide);
+// When i click slide nav indicator, move to that slide 
+dotsNav.addEventListener('click', e => {
+    const targetDot = e.target.closest('button')
+
+    if (!targetDot) return;
+
+    const currentSlide = track.querySelector('.current_slide');
+    const currentDot = dotsNav.querySelector('.current_slide');
+    const targetIndex = dots.findIndex(dot => dot === targetDot);
+    const targetSlide = slides[targetIndex];
+
+    /*****************************************************************************/
+    moveToSlide(track, currentSlide, targetSlide);
+    updateDots(currentDot, targetDot);
+
+})
+
+
+
+/*****************************************************************************/
+nextButton.addEventListener('click', moveSlideToRight);
+/*****************************************************************************/
+prevButton.addEventListener('click', moveSlideToLeft);
+/*****************************************************************************/
+setInterval(moveSlideToRight, 2000)
